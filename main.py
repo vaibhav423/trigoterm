@@ -34,13 +34,21 @@ def main():
         else:
             if select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):
                 c = sys.stdin.read(1)
-                if c == '':
-                    if sys.stdin.read(1) == '[':
-                        arrow = sys.stdin.read(1)
-                        if arrow == 'A':
-                            return 'up'
-                        elif arrow == 'B':
-                            return 'down'
+                if ord(c) == 27:  # ESC character (0x1b)
+                    # Read the next characters for arrow keys
+                    if select.select([sys.stdin], [], [], 0.01) == ([sys.stdin], [], []):
+                        c2 = sys.stdin.read(1)
+                        if c2 == '[':
+                            if select.select([sys.stdin], [], [], 0.01) == ([sys.stdin], [], []):
+                                c3 = sys.stdin.read(1)
+                                if c3 == 'A':
+                                    return 'up'
+                                elif c3 == 'B':
+                                    return 'down'
+                                elif c3 == 'C':
+                                    return 'right'
+                                elif c3 == 'D':
+                                    return 'left'
                 return c
         return None
 
@@ -115,44 +123,60 @@ def main():
                 print("".join(row))
 
             print(f"\033[{height - len(menu_options) - 2};0H", end="")
-            print("Select a trigonometric function pair to visualize:")
-            for i, option in enumerate(menu_options):
-                if i == selected_option:
-                    print(Colors.GREEN + f"> {option}" + Colors.END)
-                else:
-                    print(f"  {option}")
+            print("Press a number to select a trigonometric function pair:")
+            for option in menu_options:
+                print(f"  {option}")
 
             choice = get_char_non_blocking()
 
             if choice:
-                if choice == 'up':
-                    selected_option = (selected_option - 1) % len(menu_options)
-                elif choice == 'down':
-                    selected_option = (selected_option + 1) % len(menu_options)
-                elif choice == '\r' or choice == '\n':
-                    script_to_run = None
-                    if selected_option == 0:
-                        script_to_run = "trigo_circle.py"
-                    elif selected_option == 1:
-                        script_to_run = "trigo_circle_sec_tan.py"
-                    elif selected_option == 2:
-                        script_to_run = "trigo_circle_cot_cosec.py"
-                    elif selected_option == 3:
-                        break
+                if choice == '1':
+                    script_to_run = "trigo_circle.py"
+                    if os.name != 'nt':
+                        import termios
+                        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+                    
+                    try:
+                        subprocess.run([sys.executable, script_to_run])
+                    except KeyboardInterrupt:
+                        pass
 
-                    if script_to_run:
-                        if os.name != 'nt':
-                            import termios
-                            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+                    if os.name != 'nt':
+                        import tty
+                        tty.setcbreak(sys.stdin.fileno())
                         
-                        try:
-                            subprocess.run([sys.executable, script_to_run])
-                        except KeyboardInterrupt:
-                            pass
+                elif choice == '2':
+                    script_to_run = "trigo_circle_sec_tan.py"
+                    if os.name != 'nt':
+                        import termios
+                        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+                    
+                    try:
+                        subprocess.run([sys.executable, script_to_run])
+                    except KeyboardInterrupt:
+                        pass
 
-                        if os.name != 'nt':
-                            import tty
-                            tty.setcbreak(sys.stdin.fileno())
+                    if os.name != 'nt':
+                        import tty
+                        tty.setcbreak(sys.stdin.fileno())
+                        
+                elif choice == '3':
+                    script_to_run = "trigo_circle_cot_cosec.py"
+                    if os.name != 'nt':
+                        import termios
+                        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+                    
+                    try:
+                        subprocess.run([sys.executable, script_to_run])
+                    except KeyboardInterrupt:
+                        pass
+
+                    if os.name != 'nt':
+                        import tty
+                        tty.setcbreak(sys.stdin.fileno())
+                        
+                elif choice == '4':
+                    break
 
             angle = (angle + 5) % 360
 
