@@ -4,7 +4,9 @@ import sys
 import time
 from colors import Colors
 import select
-import subprocess
+import trigo_circle
+import trigo_circle_sec_tan
+import trigo_circle_cot_cosec
 
 def main():
     angle = 0
@@ -131,13 +133,12 @@ def main():
 
             if choice:
                 if choice == '1':
-                    script_to_run = "trigo_circle.py"
                     if os.name != 'nt':
                         import termios
                         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
                     
                     try:
-                        subprocess.run([sys.executable, script_to_run])
+                        trigo_circle.main()
                     except KeyboardInterrupt:
                         pass
 
@@ -146,13 +147,12 @@ def main():
                         tty.setcbreak(sys.stdin.fileno())
                         
                 elif choice == '2':
-                    script_to_run = "trigo_circle_sec_tan.py"
                     if os.name != 'nt':
                         import termios
                         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
                     
                     try:
-                        subprocess.run([sys.executable, script_to_run])
+                        trigo_circle_sec_tan.main()
                     except KeyboardInterrupt:
                         pass
 
@@ -161,13 +161,12 @@ def main():
                         tty.setcbreak(sys.stdin.fileno())
                         
                 elif choice == '3':
-                    script_to_run = "trigo_circle_cot_cosec.py"
                     if os.name != 'nt':
                         import termios
                         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
                     
                     try:
-                        subprocess.run([sys.executable, script_to_run])
+                        trigo_circle_cot_cosec.main()
                     except KeyboardInterrupt:
                         pass
 
