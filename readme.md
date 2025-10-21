@@ -1,5 +1,5 @@
 Awesome TERMINAL PROGRAM to visualize trigonometric function
-<img width="1920" height="1080" alt="screenshot_02102025_032504" src="<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/65b9a574-50a9-47ba-ba3b-118265927e01" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/65b9a574-50a9-47ba-ba3b-118265927e01" />
 
 
 
