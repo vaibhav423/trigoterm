@@ -3,7 +3,9 @@ Awesome TERMINAL PROGRAM to visualize trigonometric function
 
 
 
-https://github.com/user-attachments/assets/85f1ee26-f592-4b7b-9d93-2049ad2139fb
+
+https://github.com/user-attachments/assets/9869f2f2-7b93-42fe-956c-420eec21279a
+
 
 includes :
 
