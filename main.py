@@ -7,6 +7,7 @@ import select
 import trigo_circle
 import trigo_circle_sec_tan
 import trigo_circle_cot_cosec
+import trigo_circle_all_graphs as trigo_interactive_graphs
 
 def main():
     angle = 0
@@ -15,7 +16,8 @@ def main():
         "1. Sine and Cosine",
         "2. Secant and Tangent",
         "3. Cosecant and Cotangent",
-        "4. Exit"
+        "4. Interactive Graph Selection",
+        "5. Exit"
     ]
     
     title_art = [
@@ -175,6 +177,20 @@ def main():
                         tty.setcbreak(sys.stdin.fileno())
                         
                 elif choice == '4':
+                    if os.name != 'nt':
+                        import termios
+                        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+                    
+                    try:
+                        trigo_interactive_graphs.main()
+                    except KeyboardInterrupt:
+                        pass
+
+                    if os.name != 'nt':
+                        import tty
+                        tty.setcbreak(sys.stdin.fileno())
+                        
+                elif choice == '5':
                     break
 
             angle = (angle + 5) % 360
