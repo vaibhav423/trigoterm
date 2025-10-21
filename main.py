@@ -16,7 +16,7 @@ def main():
         "1. Sine and Cosine",
         "2. Secant and Tangent",
         "3. Cosecant and Cotangent",
-        "4. Interactive Graph Selection",
+        "4. custom Selection[only graphs]",
         "5. Exit"
     ]
     
